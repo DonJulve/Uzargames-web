@@ -1,0 +1,103 @@
+<% content_for :header do %>
+<style>
+  .nav-tabs .nav-item a.nav-link.active {
+    background-color: #2E1572;
+    color: #FFFFFF;
+  }
+
+  .nav-tabs .nav-item a.nav-link {
+    background-color: #FFFFFF;
+    color: #2E1572;
+  }
+
+  .btn-purple {
+    background-color: #2E1572;
+    color: #FFFFFF;
+  }
+  
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#registrar-tab').click(function() {
+      $('#form-inicio-sesion').hide();
+      $('#form-registro').show();
+    });
+
+    $('#iniciar-sesion-tab').click(function() {
+      $('#form-registro').hide();
+      $('#form-inicio-sesion').show();
+    });
+  });
+</script>
+<% end %>
+
+<div class="container mt-1">
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#Registrar" id="registrar-tab">Registrar</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#Iniciar_sesion" id="iniciar-sesion-tab">Iniciar sesion</a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="Registrar" class="tab-pane active">
+      <form class="m-3" id="form-registro" action="/signup" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+        <div class="form-group">
+          <label for="CorreoElectronico">Correo electrónico</label>
+          <input type="text" class="form-control" id="CorreoElectronico" name="usuario[correo]" placeholder="Ingresa tu correo electrónico">
+        </div>
+
+        <div class="form-group my-3">
+          <label for="NombreUsuario">Nickname</label>
+          <input type="text" class="form-control" id="NombreUsuario" name="usuario[nickname]" placeholder="Ingresa tu nickname">
+        </div>
+
+        <div class="form-group my-3">
+          <label for="ContraseñaRegistro">Contraseña</label>
+          <input type="password" class="form-control" id="ContraseñaRegistro" name="usuario[contraseña]" placeholder="Ingresa tu contraseña">
+        </div>
+
+        <% if flash[:alert] %>
+            <div class="alert alert-danger mt-3"><%= flash[:alert] %></div>
+        <% end %>
+
+        <button type="submit" class="btn btn-purple btn-block">Registrar</button>
+      </form>
+    </div>
+
+    <div id="Iniciar_sesion" class="tab-pane">
+      <form class="m-3" id="form-inicio-sesion" action="/user/login" method="get">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+        <div class="form-group">
+          <label for="NombreUsuarioInicio">Nickname</label>
+          <input type="text" class="form-control" id="NombreUsuarioInicio" name="session[nickname]" placeholder="Ingresa tu nickname">
+        </div>
+
+        <div class="form-group my-3">
+          <label for="ContraseñaInicio">Contraseña</label>
+          <input type="password" class="form-control" id="ContraseñaInicio" name="session[password]" placeholder="Ingresa tu contraseña">
+        </div>
+
+        <% if flash[:alert] %>
+            <div class="alert alert-danger mt-3">
+              <%= flash[:alert] %>
+            </div>
+        <% end %>
+
+        <button type="submit" class="btn btn-purple btn-block">Iniciar sesión</button>
+
+      </form>
+    </div>
+
+  </div>
+</div>

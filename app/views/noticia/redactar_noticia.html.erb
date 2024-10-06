@@ -1,0 +1,39 @@
+<h2><%= notice %></h2>
+
+<div class="container border bg-dark border-white rounded-3 p-5 mb-2">
+		
+	<%= form_tag "/noticia/upload",:method=>"post",multipart: true do %>
+		<%= text_field_tag "title",nil, :class=>"form-control me-2 .align-middle",:"placeholder"=>"Titulo" %>
+		<hr style="height:2px;border-width:0;color:white;background-color:white" />
+		<%= file_field_tag "image",:class => "text-white" %>
+		<hr style="height:2px;border-width:0;color:white;background-color:white" />
+		<%= text_area_tag "content",nil, :class=>"form-control me-2 .align-middle",:"placeholder"=>"Contenido","rows"=>20 %>
+		<hr style="height:2px;border-width:0;color:white;background-color:white" />
+
+		<%= label "Type","Noticia",:class => "text-white" %>
+		<%= radio_button_tag 'type', 'noticia', true, :class => "text-white" %>
+		<%= label "Type","Critica",:class => "text-white" %>
+		<%= radio_button_tag 'type', 'critica', false, :class => "text-white" %>
+
+		<hr style="height:2px;border-width:0;color:white;background-color:white" />
+
+		<%= submit_tag("submit",:class=>"btn bg-dark text-white btn-outline-white border border-white", value: "Send") %>
+	<% end %>
+
+</div>
+
+
+
+
+
+
+
+
+
+<% content_for :left do %>
+	<h6>IZQUIERDA</h6>
+<% end %>
+
+<% content_for :right do %>
+	<h6>DERECHA</h6>
+<% end %>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Uzargames</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+  </head>
+
+  <body style="background-color:#2e1572;">
+
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <span class="fs-5 d-none d-sm-inline">Menu</span>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="/admin/redactores" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-person-vcard text-white"></i> <span class="ms-1 d-none d-sm-inline text-white">Redactores</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/reportes" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-flag text-white"></i> <span class="ms-1 d-none d-sm-inline text-white">Reportes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-newspaper text-white"></i> <span class="ms-1 d-none d-sm-inline text-white">Contenidos</span> </a>
+                        <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                            <li class="nav-item w-100">
+                                <a href="/admin/noticias" class="nav-link align-middle px-0 ms-2">
+                                    <i class="fs-5 bi-type-h1 text-white"></i> <span class="ms-1 d-none d-sm-inline text-white">Noticias</span>
+                                </a>
+                            </li>
+                            <li class="nav-item w-100">
+                                <a href="/admin/criticas" class="nav-link align-middle px-0 ms-2">
+                                    <i class="fs-5 bi-type-h2 text-white"></i> <span class="ms-1 d-none d-sm-inline text-white">Criticas</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/admins" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-person-gear text-white"></i> <span class="ms-1 d-none d-sm-inline text-white">Admins</span>
+                        </a>
+                    </li>
+                    <li class="nav-item w-100">
+                        <a href="/" class="nav-link align-middle px-0 bg-white">
+                            <i class="fs-4 bi-box-arrow-left text-dark"></i> <span class="ms-1 d-none d-sm-inline text-dark">Exit</span>
+                        </a>
+                    </li>
+                </div>
+            </div>
+
+            <div class="col py-3 text-white">
+              <%= yield %>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<div class="container bg-dark rounded-3 p-5 mt-2 mb-2">
+	<h2 class="text-white">Resultados</h2>
+	<hr style="height:2px;border-width:0;color:white;background-color:white" />
+	<% @noticias_deseadas.each do |noticia| %>
+		<%= render partial: "noticia/plantilla_noticia_buscador", locals: {noticia: noticia} %>
+	<% end %>
+	<% if @noticias_deseadas.length == 0 %>
+		<h2 id="NO_RESULTS" class="text-white">NO HAY RESULTADOS</h2>
+	<% end %>
+</div>
+
+<% content_for :left do %>
+	<div class="container bg-dark rounded-3 p-2 mt-2 mb-2">
+	<h2 class="text-white">Filtros</h2>
+	<hr style="height:2px;border-width:0;color:white;background-color:white" />
+	<%= form_tag("/buscador" ,:method=>"get") do %>
+		<%= text_field_tag "titulo",nil, :class=>"form-control me-2 .align-middle",:"placeholder"=>"Search",:value=>@titulo %>
+		<hr style="height:2px;border-width:0;color:white;background-color:white" />
+		<div class="form-group text-white">
+			<%= label_tag do %>
+			<%= check_box_tag "NOTICIAS",nil,@categorias_seleccionadas.include?("NOTICIAS"),:class=>"form-check-input",:name=>"NOTICIAS" %>
+			NOTICIAS
+			<% end %>
+		</div>
+		<div class="form-group text-white">
+			<%= label_tag do %>
+			<%= check_box_tag "CRITICAS",nil,@categorias_seleccionadas.include?("CRITICAS"),:class=>"form-check-input",:name=>"CRITICAS" %>
+			CRITICAS
+			<% end %>
+		</div>	
+        <hr style="height:2px;border-width:0;color:white;background-color:white" />
+        
+		
+		<% @categorias.each do |categoria| %>
+			<div class="form-group text-white">
+				<%= label_tag do %>
+				<%= check_box_tag categoria.nombre,nil,@categorias_seleccionadas.include?(categoria.nombre),:class=>"form-check-input",:name=>categoria.nombre %>
+				<%= categoria.nombre %>
+				<% end %>
+			</div>
+		<% end %>
+		<%= submit_tag("submit",:class=>"btn bg-white text-blue btn-outline-black", value: "Search") %>
+	<% end %>
+	</div>
+<% end %>
+
+<% content_for :right do %>
+	
+<% end %>

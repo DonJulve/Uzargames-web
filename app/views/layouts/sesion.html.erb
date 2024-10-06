@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Uzargames</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= yield(:header) %>
+  </head>
+
+  <body style="background-color:gray;">
+
+    <div style="height: 80%;width: 50%;background-color:white;position: absolute;top: 50%;left:50%;transform: translate(-50%,-50%);">
+      <%= yield %>
+    </div>
+
+  </body>
+</html>

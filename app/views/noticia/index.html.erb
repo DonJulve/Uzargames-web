@@ -1,0 +1,15 @@
+<%= render partial: "plantilla_noticia", locals: {noticia: @noticia} %>
+
+<% if @valoraciones!=nil %>
+	<%= render partial: "critica/plantilla_valoraciones", locals: {t: @titulo,valoraciones: @valoraciones,notaUsuarios: @notaUsuarios,notaRedactores: @notaRedactores} %>
+<% end %>
+
+<%= render partial: "comentario/plantilla_comentarios", locals: {t: @titulo,comentarios: @comentarios } %>
+
+<% content_for :left do %>
+	
+<% end %>
+
+<% content_for :right do %>
+	
+<% end %>

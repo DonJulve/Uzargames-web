@@ -1,0 +1,32 @@
+<div class="container-fluid">
+	<div class="row mb-2">
+	    <div class="col-lg-6 col-md-6 col-sm-12">
+	    	<%= form_tag("/admin/criticas/remove" ,:method=>"post",:class=>"d-flex") do %>
+	          <%= text_field_tag "titulo",nil, :class=>"form-control me-2",:"placeholder"=>"Titulo critica aprobada" %>
+	          <%= submit_tag("submit",:class=>"btn bg-white text-blue btn-outline-black", value: "Quitar aprobado") %>
+	        <% end %>
+	    </div>
+	    <div class="col-lg-6 col-md-6 col-sm-12">
+	    	<%= form_tag("/admin/criticas/add" ,:method=>"post",:class=>"d-flex") do %>
+	          <%= text_field_tag "titulo",nil, :class=>"form-control me-2",:"placeholder"=>"Titulo critica no aprobada" %>
+	          <%= submit_tag("submit",:class=>"btn bg-white text-blue btn-outline-black", value: "Aprobar") %>
+	        <% end %>
+	    </div>
+	  </div>
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-12">
+			<ul class="list-group">
+				<% @criticas_aprobadas.each do |critica| %>
+					<li class="list-group-item"><%= link_to critica.titulo, "/noticia/"+critica.titulo %></li>
+			  	<% end %>
+			</ul>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-12">
+			<ul class="list-group">
+				<% @criticas_no_aprobadas.each do |critica| %>
+					<li class="list-group-item"><%= link_to critica.titulo, "/noticia/"+critica.titulo %></li>
+			  	<% end %>
+			</ul>
+		</div>
+	</div>
+</div>

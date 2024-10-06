@@ -1,0 +1,63 @@
+<div class="container bg-dark rounded-3 p-5 mb-2">
+	<div class="row">
+		<h2 class="text-white">Valoraciones</h2>
+		<hr style="height:2px;border-width:0;color:white;background-color:white" />
+	</div>
+	<div class="row">
+		<% if session[:usuario_id]!=nil %>
+			<div class="container border bg-dark border-white rounded-3 p-5 mb-2">
+			
+				<%= form_tag("/noticia/"+t+"/postreview/"+session[:usuario_id][0] ,:method=>"post") do %>
+					<%= number_field_tag "nota",nil, :class=>"form-control me-2 .align-middle",:"placeholder"=>"Nota" %>
+					<hr style="height:2px;border-width:0;color:white;background-color:white" />
+					<%= text_area_tag "puntos_positivos",nil, :class=>"form-control me-2 .align-middle",:"placeholder"=>"Inserte aqui los puntos positivos" %>
+					<hr style="height:2px;border-width:0;color:white;background-color:white" />
+					<%= text_area_tag "puntos_negativos",nil, :class=>"form-control me-2 .align-middle",:"placeholder"=>"Inserte aqui los puntos negativos" %>
+					<hr style="height:2px;border-width:0;color:white;background-color:white" />
+					<%= submit_tag("submit",:class=>"btn bg-dark text-white btn-outline-white border border-white", value: "Send") %>
+				<% end %>
+			
+			</div>
+
+		<hr style="height:2px;border-width:0;color:white;background-color:white" />
+		<% end %>
+	</div>
+	<div class="row ">
+		
+		<div class="container-fluid col-md-5 col-sm-12 bg-blue rounded-3 mb-2 p-0">
+			<h3 class="text-white">Redactores</h3>
+			<div class="d-flex justify-content-center">
+				<div class="bg-white text-dark rounded-circle h1" style="height: 75px;width:75px;display: flex;justify-content: center;align-items: center;"><%= notaRedactores %></div>
+			</div>
+			<hr style="height:2px;border-width:0;color:white;background-color:white" />
+			<% valoraciones.each do |valoracion| %>
+				<% if Redactor.exists?(nickname_redactor: valoracion.nickname_usuario) %>
+					<% r = Redactor.find_by(nickname_redactor: valoracion.nickname_usuario) %>
+					<% if r.habilitado %>
+						<%= render partial: "critica/plantilla_valoracion", locals: {valoracion: valoracion} %>
+					<% end %>
+				<% end %>
+			<% end %>
+		</div>
+
+		<div class="container-fluid col-md-2 col-sm-12"></div>
+
+		<div class="container-fluid col-md-5 col-sm-12 bg-blue rounded-3 mb-2 p-0">
+			<h3 class="text-white">Usuarios</h3>
+			<div class="d-flex justify-content-center">
+				<div class="bg-white text-dark rounded-circle h1" style="height: 75px;width:75px;display: flex;justify-content: center;align-items: center;"><%= notaUsuarios %></div>
+			</div>
+			<hr style="height:2px;border-width:0;color:white;background-color:white" />
+			<% valoraciones.each do |valoracion| %>
+				<% if !Redactor.exists?(nickname_redactor: valoracion.nickname_usuario) %>
+						<%= render partial: "critica/plantilla_valoracion", locals: {valoracion: valoracion} %>
+				<% else %>
+					<% r = Redactor.find_by(nickname_redactor: valoracion.nickname_usuario) %>
+					<% if !r.habilitado %>
+						<%= render partial: "critica/plantilla_valoracion", locals: {valoracion: valoracion} %>
+					<% end %>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>

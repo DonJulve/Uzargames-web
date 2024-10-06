@@ -1,0 +1,22 @@
+<div class="container bg-dark rounded-3 p-5 mb-2">
+	<h2 class="text-white">Comentarios</h2>
+	<hr style="height:2px;border-width:0;color:white;background-color:white" />
+	<% if session[:usuario_id]!=nil %>
+		<div class="container border bg-dark border-white rounded-3 p-5 mb-2">
+		
+			<%= form_tag("/noticia/"+t+"/postcomment/"+session[:usuario_id][0] ,:method=>"post") do %>
+				<%= text_field_tag "comentario",nil, :class=>"form-control me-2 .align-middle",:"placeholder"=>"Inserte aqui su comentario" %>
+				<hr style="height:2px;border-width:0;color:white;background-color:white" />
+
+				<%= submit_tag("submit",:class=>"btn bg-dark text-white btn-outline-white border border-white", value: "Send") %>
+			<% end %>
+		
+		</div>
+
+		<hr style="height:2px;border-width:0;color:white;background-color:white" />
+	<% end %>
+	
+	<% comentarios.each do |comentario| %>
+		<%= render partial: "comentario/comentario", locals: {comentario: comentario} %>
+	<% end %>
+</div>

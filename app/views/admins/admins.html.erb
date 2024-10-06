@@ -1,0 +1,34 @@
+<div class="container-fluid">
+	<div class="row mb-2">
+	    <div class="col-lg-6 col-md-6 col-sm-12">
+	    	<%= form_tag("/admin/admins/remove" ,:method=>"post",:class=>"d-flex") do %>
+	          <%= text_field_tag "nickname",nil, :class=>"form-control me-2",:"placeholder"=>"Nickname admin" %>
+	          <%= submit_tag("submit",:class=>"btn bg-white text-blue btn-outline-black", value: "Remove") %>
+	        <% end %>
+	    </div>
+	    <div class="col-lg-6 col-md-6 col-sm-12">
+	    	<%= form_tag("/admin/admins/add" ,:method=>"post",:class=>"d-flex") do %>
+	          <%= text_field_tag "nickname",nil, :class=>"form-control me-2",:"placeholder"=>"Nickname usuario" %>
+	          <%= submit_tag("submit",:class=>"btn bg-white text-blue btn-outline-black", value: "Add") %>
+	        <% end %>
+	    </div>
+	  </div>
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-12">
+			<ul class="list-group">
+				<% @admins.each do |admin| %>
+					<li class="list-group-item"><%= admin.nickname_admin %></li>
+			  	<% end %>
+			</ul>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-12">
+			<ul class="list-group">
+				<% @usuarios.each do |usuario| %>
+					<li class="list-group-item"><%= usuario.nickname %></li>
+			  	<% end %>
+			</ul>
+		</div>
+	</div>
+</div>
+
+

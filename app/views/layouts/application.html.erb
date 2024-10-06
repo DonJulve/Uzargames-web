@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Uzargames</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+    <%= stylesheet_link_tag ("main_page.css") %>
+
+    <%= favicon_link_tag asset_path("uzargames_icon.png") %>
+
+    <%= yield(:header) %>
+
+  </head>
+
+  <body>
+
+  <nav class="navbar navbar-expand-lg backcolor">
+    <div class="container-fluid">
+      <%= link_to '/' do %>
+        <%= image_tag("uzargames_icon.png", :alt => "Website icon", :class => "web_icon") %>
+      <% end %>
+      <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active text-white" href="/buscador?titulo=&NOTICIAS=on&commit=Search">Noticias</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active text-white" href="/buscador?titulo=&CRITICAS=on&commit=Search">Criticas</a>
+          </li>
+
+          <% if session[:esAdmin]!=nil %>
+            <li class="nav-item text-white">
+              <a class="nav-link active text-white" href="/admin">Portal admin</a>
+            </li>
+          <% end %>
+
+          <% if session[:esRedactor]!=nil %>
+            <li class="nav-item text-white">
+              <a class="nav-link active text-white" href="/noticia/redactar">Redactar noticia</a>
+            </li>
+          <% end %>
+
+          
+                 
+        </ul>
+
+        <% if session[:usuario_id]==nil %>
+
+          <form class="d-flex" action="/login">
+            <button class="btn bg-white text-blue btn-outline-black navbar-btn me-5" type="submit">Login</button>
+          </form>
+
+        <% else %>
+
+          <form class="d-flex" action="/logout">
+            <button class="btn bg-white text-blue btn-outline-black navbar-btn me-5" type="submit">Logout</button>
+          </form>
+        <% end %>
+
+        <%= form_tag("/buscador" ,:method=>"get",:class=>"d-flex") do %>
+          <%= text_field_tag "titulo",nil, :class=>"form-control me-2",:"placeholder"=>"Search" %>
+          <%= submit_tag("submit",:class=>"btn bg-white text-blue btn-outline-black", value: "Search") %>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-12 bg-white"><%= yield(:left) %></div>
+        <div class="col-lg-8 col-md-10 col-sm-12 bg-white"><%= yield %></div>
+        <div class="col-lg-2 col-md-12 col-sm-12 bg-white"><%= yield(:right) %></div>
+      </div>
+    </div>
+
+    <div id="footer">
+      Esto es el pie de pagina
+    </div>
+
+    
+  </body>
+</html>

@@ -1,0 +1,124 @@
+<h2><%= notice %></h2>
+
+<% content_for :header do %>
+  <style>
+  figure{
+    margin: 16px 40px !important;
+  }
+	</style>
+  <script>
+  document.addEventListener('turbo:load', () => {
+  if (document.querySelector('.contenedor-informacion')) {
+    return;
+  }
+
+  var contenedorInformacion = document.createElement('div');
+  contenedorInformacion.className = 'contenedor-informacion';
+
+  var rectanguloRedondeado = document.querySelector('.container-fluid.border.border-dark.rounded-4');
+  rectanguloRedondeado.appendChild(contenedorInformacion);
+
+  var circulosBlancos = document.querySelectorAll('.rounded-circle.border.border-dark.rounded-4');
+
+  circulosBlancos.forEach(function (circuloBlanco, index) {
+    circuloBlanco.addEventListener('click', function (event) {
+      event.stopPropagation();
+
+      var circulosNegros = document.querySelectorAll('.rounded-circle.border.border-dark.rounded-4 .bg-dark');
+      circulosNegros.forEach(function (circuloNegroExistente) {
+        circuloNegroExistente.remove();
+      });
+
+      var circuloNegro = document.createElement('div');
+      circuloNegro.className = 'rounded-circle border border-dark rounded-4 col-2 bg-dark';
+      circuloNegro.style.width = '60px';
+      circuloNegro.style.height = '60px';
+      circuloNegro.style.display = 'flex';
+      circuloNegro.style.justifyContent = 'center';
+      circuloNegro.style.alignItems = 'center';
+      circuloBlanco.appendChild(circuloNegro);
+
+      mostrarInformacion(index);
+    });
+
+    // Simular clic en el primer círculo
+    if (index === 0) {
+      circuloBlanco.click();
+    }
+  });
+
+  function mostrarInformacion(index) {
+    var noticias = <%= raw @noticias.to_json %>;
+    var informacion = noticias[index] || { titulo: "Información por defecto", nickname_redactor: "", fecha_publicacion: "", enlace_imagen: "" };
+
+    var titulo = informacion.titulo || "Información por defecto";
+    var nicknameRedactor = informacion.nickname_redactor || "";
+    var fechaPublicacion = informacion.fecha_publicacion || "";
+    var enlaceImagen = informacion.enlace_imagen || "";
+
+    contenedorInformacion.innerHTML = `<div class="imagen-noticia">
+        <figure>
+          <div class="btn">
+            <h1>
+              <a href="/noticia/${titulo}">
+                ${titulo}
+              </a>
+            </h1>
+          </div>
+          <img src="/uploads/noticias/${enlaceImagen}" alt="Imagen" class="img-fluid"/>
+        </figure>
+      </div>
+      <div class="texto-noticia">
+        <br> Redactor: ${nicknameRedactor} 
+        <br> Fecha: ${fechaPublicacion}
+      </div>`;
+  }
+});
+
+
+</script>
+
+
+
+
+
+<% end %>
+
+<div class="container-fluid">
+    <div class="row">
+      <div class="container-fluid border border-dark rounded-4"></div>
+      <% @noticias.each_with_index do |noticia, index| %>
+        <div class="rounded-circle border border-dark rounded-4 col-2 btn" 
+          style="height: 75px; width: 75px; display: flex; justify-content: center; align-items: center;" 
+          data-titulo="<%= noticia.titulo %>">
+        </div>
+      <% end %> 
+    </div>
+  </div>
+
+
+
+
+<% content_for :right do %>
+  <div class="container mt-1">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body overflow-auto" style="max-height: 450px;">
+            <ul class="list-unstyled">
+              <% @criticas.each do |critica| %>
+                <li class="mb-3">
+                  <a href="/noticia/<%= critica.titulo %>">
+                    <h4 class="mb-2"><%= critica.titulo %></h4>
+                  </a>
+                  <p class="mb-1">Nota Redactores: <%= @notas_por_critica[critica.titulo][:notaRedactores] %></p>
+                  <p class="mb-0">Nota Usuarios: <%= @notas_por_critica[critica.titulo][:notaUsuarios] %></p>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

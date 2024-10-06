@@ -1,0 +1,5 @@
+<h1> <%= noticia.titulo %> </h1>
+<%= image_tag("/uploads/noticias/#{noticia.enlace_imagen}", :alt => "Imagen de la noticia", :class => "img-fluid") %>
+<h5><i>Redactado por: <%= noticia.nickname_redactor %></i></h5>
+<hr/>
+<p> <%= noticia.contenido %> </p>

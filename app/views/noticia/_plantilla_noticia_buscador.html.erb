@@ -1,0 +1,13 @@
+<div class="NOTICIA col-sm-12 bg-white rounded-3 mt-2 mb-2 p-2">
+	<h4> <%= link_to noticia.titulo, "/noticia/"+noticia.titulo %></h4>
+	<hr/>
+	<% NotCat.where(titulo_noticia: noticia.titulo).each do |cat| %>
+		<h6 style="display: inline;margin-inline-end: 10px;"><%= cat.nombre_categoria %></h6>	
+	<% end %>
+
+	<% if NotCat.where(titulo_noticia: noticia.titulo).size == 0 %>
+		<h6 style="display: inline;margin-inline-end: 10px;">SIN CATEGORIAS ASIGNADAS</h6>	
+	<% end %>
+	<hr/>
+	<p> Escrito por: <%= noticia.nickname_redactor %> </p>
+</div>

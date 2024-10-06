@@ -1,0 +1,32 @@
+<div class="container-fluid">
+	<div class="row mb-2">
+	    <div class="col-lg-6 col-md-6 col-sm-12">
+	    	<%= form_tag("/admin/noticias/remove" ,:method=>"post",:class=>"d-flex") do %>
+	          <%= text_field_tag "titulo",nil, :class=>"form-control me-2",:"placeholder"=>"Titulo noticia aprobada" %>
+	          <%= submit_tag("submit",:class=>"btn bg-white text-blue btn-outline-black", value: "Quitar aprobado") %>
+	        <% end %>
+	    </div>
+	    <div class="col-lg-6 col-md-6 col-sm-12">
+	    	<%= form_tag("/admin/noticias/add" ,:method=>"post",:class=>"d-flex") do %>
+	          <%= text_field_tag "titulo",nil, :class=>"form-control me-2",:"placeholder"=>"Titulo noticia no aprobada" %>
+	          <%= submit_tag("submit",:class=>"btn bg-white text-blue btn-outline-black", value: "Aprobar") %>
+	        <% end %>
+	    </div>
+	  </div>
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-12">
+			<ul class="list-group">
+				<% @noticias_aprobadas.each do |noticia| %>
+					<li class="list-group-item"><%= link_to noticia.titulo, "/noticia/"+noticia.titulo %></li>
+			  	<% end %>
+			</ul>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-12">
+			<ul class="list-group">
+				<% @noticias_no_aprobadas.each do |noticia| %>
+					<li class="list-group-item"><%= link_to noticia.titulo, "/noticia/"+noticia.titulo %></li>
+			  	<% end %>
+			</ul>
+		</div>
+	</div>
+</div>

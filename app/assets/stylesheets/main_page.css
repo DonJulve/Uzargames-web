@@ -1,0 +1,54 @@
+body{
+  background-color: #2e1572;
+}
+
+
+.web_icon
+{
+    height: 120px;
+}
+
+.imagen_noticia
+{
+    height: 120px;
+}
+
+
+#backcolor
+{
+  background-color: white;
+  background-image: -webkit-linear-gradient(top, #2e1572, #2e1572 70%, transparent 70%, transparent 100%)
+}
+
+.bsep
+{
+  margin-right: 100px;
+  border-right: 4px solid white;
+}
+
+
+#container
+{
+  background-color: white;
+}
+
+#footer
+{
+  width: 100%;
+  height: 120px;
+  background-color: #2e1572;
+  color: white;
+}
+
+@media only screen and (min-width: 992px) {
+  .navbar .navbar-nav .nav-item .nav-link {
+    padding: 0 0.5em;
+  }
+  .navbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+    border-right: 4px solid #ffffff;
+  }
+
+  .navbar .navbar-nav .nav-item:first-child .nav-link {
+    border-left: 4px solid #ffffff;
+  }
+}
